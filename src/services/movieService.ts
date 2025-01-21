@@ -10,7 +10,6 @@ interface Movie {
 //fetch movies by year and page
 export const getMoviesByYear = async (year: string, page: number): Promise<Movie[]> => {
     try {
-
         // Fallback to page 1 if the page is invalid
         if (!Number.isInteger(page) || page < 1 || page > 500) {
             console.warn(`Invalid page number (${page}). Defaulting to page 1.`);
@@ -27,13 +26,19 @@ export const getMoviesByYear = async (year: string, page: number): Promise<Movie
         });
 
         const movies = response.data.results;
-        // console.log('Movies:', movies);
 
         const movieDetails: Movie[] = [];
 
         for (const movie of movies) {
-            //match editors with movvie id
-            const editors = await getEditors(movie.id);
+            let editors: string[] = [];
+
+            try {
+                //fetch editors for the current movie
+                editors = await getEditors(movie.id);
+            } catch (error) {
+                console.error(`Failed to fetch editors for movie ${movie.id}: ${error}`);
+                //fallbackto empty array if fetching editors fails
+            }
 
             const movieDetail: Movie = {
                 title: movie.title,
