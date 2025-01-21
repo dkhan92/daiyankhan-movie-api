@@ -1,0 +1,27 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# IntelliJ IDEA
+/.idea/
+/httpRequests/
+
+/dataSources/
+/dataSources.local.xml
+
+# Node.js dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.js
+*.js.map
+
+# Environment files
+.env*
+.env.TMDB_API_TOKEN
+
+# OS-specific files
+.DS_Store
+Thumbs.db
